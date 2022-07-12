@@ -161,7 +161,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Select Type</label>
+                        <label class="col-sm-3 control-label">Role</label>
                         <div class="col-sm-6">
                             <select name="txt_role" class="form-control">
                                 <option value="" selected="selected"> - select role - </option>

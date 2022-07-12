@@ -33,6 +33,18 @@
                     request.setAttribute("errorMsg", "sorry email already exist"); //error message for email already exist
                 }
             } else {
+                if (roleID == 2) {
+                    pstmt = con.prepareStatement("select * from employee_email where email =?");
+                    pstmt.setString(1, email);
+                    rs = pstmt.executeQuery();
+                    if (rs.next()) {
+                        // send email and show input code.
+                        
+                    } else {
+                        request.setAttribute("errorMsg", "sorry email is incorrect");
+                    }
+                }
+                // insert into data base.
                 pstmt = con.prepareStatement("INSERT INTO user(firstname,lastname,email,password,roleID) VALUES(?,?,?,?,?)"); //sql insert query
                 pstmt.setString(1, firstname);
                 pstmt.setString(2, lastname);
@@ -201,7 +213,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Select Type</label>
+                        <label class="col-sm-3 control-label">Role</label>
                         <div class="col-sm-6">
                             <select class="form-control" name="txt_role">
                                 <option value="" selected="selected"> - select role - </option>
