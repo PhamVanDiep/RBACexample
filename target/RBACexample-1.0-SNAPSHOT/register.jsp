@@ -39,21 +39,31 @@
                     rs = pstmt.executeQuery();
                     if (rs.next()) {
                         // send email and show input code.
-                        
+                        if (rs.getInt("status") == 0) {
+                            session.setAttribute("txt_firstname", firstname);
+                            session.setAttribute("txt_lastname", lastname);
+                            session.setAttribute("txt_email", email);
+                            session.setAttribute("txt_password", password);
+                            session.setAttribute("txt_role", roleID);
+                            response.sendRedirect(request.getContextPath() + "/EmailSendingServlet");
+                        } else {
+                            request.setAttribute("errorMsg", "sorry email was used to register another account!");
+                        }
                     } else {
                         request.setAttribute("errorMsg", "sorry email is incorrect");
                     }
-                }
-                // insert into data base.
-                pstmt = con.prepareStatement("INSERT INTO user(firstname,lastname,email,password,roleID) VALUES(?,?,?,?,?)"); //sql insert query
-                pstmt.setString(1, firstname);
-                pstmt.setString(2, lastname);
-                pstmt.setString(3, email);           //set all variables
-                pstmt.setString(4, password);
-                pstmt.setInt(5, roleID);
-                pstmt.executeUpdate(); //execute query
+                } else if (roleID == 3) {
+                    // insert into data base.
+                    pstmt = con.prepareStatement("INSERT INTO user(firstname,lastname,email,password,roleID) VALUES(?,?,?,?,?)"); //sql insert query
+                    pstmt.setString(1, firstname);
+                    pstmt.setString(2, lastname);
+                    pstmt.setString(3, email);           //set all variables
+                    pstmt.setString(4, password);
+                    pstmt.setInt(5, roleID);
+                    pstmt.executeUpdate(); //execute query
 
-                request.setAttribute("successMsg", "register successfully please login account"); //register successfully message
+                    request.setAttribute("successMsg", "register successfully please login account"); //register successfully message
+                }
             }
 
             pstmt.close();  //close statement 

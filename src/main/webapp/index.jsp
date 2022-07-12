@@ -183,7 +183,6 @@
                             You don't have a account register here? <a href="register.jsp"><p class="text-info">Register Account</p></a>		
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>

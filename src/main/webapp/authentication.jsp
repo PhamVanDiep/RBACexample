@@ -1,9 +1,3 @@
-<%-- 
-    Document   : authentication
-    Created on : Jul 11, 2022, 11:02:49 PM
-    Author     : dieppv
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -43,26 +37,46 @@
         <div class="wrapper">
             <div class="container">
                 <div class="col-lg-12">
-                    <div class="alert alert-danger" style="display: none">
+                    <div id="code_incorrect" class="alert alert-danger" style="display: none">
                         <strong>This code is incorrect</strong>
                     </div>
-                    <div class="alert alert-success">
-                        <strong>An authentication code was sent to your register email.</strong>
-                        <strong>Type that code into below edit text to complete sign up your account.</strong>
+                    <div id="code_incorrect" class="alert alert-danger" style="display: none">
+                        <strong>This code is incorrect</strong>
                     </div>
-                    <center><h2>Authentication Page</h2></center>
-                    <br>
-                    <div class="">
-                        <label class="col-sm-3 control-label" style="text-align: right">Authentication code</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="txt_code" class="form-control" placeholder="enter authentication code" />
+                    <%
+                        if (request.getSession().getAttribute("Message").toString().equals("Fail")) {
+                            out.print("<div class='alert alert-danger'>"
+                                        + "<strong>Fail to send email! Please check your internet connection.</strong>"
+                                    +"</div>");
+                        }
+                        out.print("<input type='hidden' id='status_sent value='" + request.getSession().getAttribute("Message") + "'/>");
+                    %>
+                    <form id="core" action="result.jsp" method="post">
+                        <div class="alert alert-success">
+                            <strong>An authentication code was sent to </strong>
+                            <strong><%= request.getSession().getAttribute("txt_email").toString()%></strong>
+                            <strong>. Type that code into below edit text to complete sign up your account.</strong>
                         </div>
-                    </div>
-                    <center>
-                        <input type="button" name="btn_authen" class="btn btn-success" value="Authentication">
-                    </center>
+                        <center><h2>Authentication Page</h2></center>
+                        <br>
+                        <div class="">
+                            <label class="col-sm-3 control-label" style="text-align: right">Authentication code</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="txt_code" class="form-control" placeholder="enter authentication code" />
+                            </div>
+                        </div>
+                        <center>
+                            <input type="submit" name="btn_authen" class="btn btn-success" value="Authentication">
+                        </center>
+                    </form>
                 </div>
             </div>
         </div>
+        <script>
+            let statusSent = document.getElementById("status_sent");
+            if (statusSent.value === "Fail") {
+                document.getElementById("core").style.setProperty("display", "none");
+            }
+        </script>
     </body>
 </html>
