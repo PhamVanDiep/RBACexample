@@ -102,7 +102,7 @@
                     <%
                         }
                     %>
-                    <h3><a href="login.jsp">Login</h3>
+                    <h3><a href="index.jsp">Login</h3>
                 </div>
             </div>
         </div>
